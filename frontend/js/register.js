@@ -1,131 +1,70 @@
-const registerForm =
-document.getElementById("registerForm");
-
-const message =
-document.getElementById("message");
-
 
 // REGISTER FORM
+const registerForm = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
-registerForm.addEventListener(
-    "submit",
-    async (e) => {
+registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        e.preventDefault();
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-        const username =
-        document.getElementById("username").value;
+    message.innerText = "Registering...";
 
-        const email =
-        document.getElementById("email").value;
-
-        const password =
-        document.getElementById("password").value;
-
-        try {
-
-            const response = await fetch(
-
-                "http://localhost:5000/api/auth/register",
-
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                        "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        username,
-
-                        email,
-
-                        password
-
-                    })
-
-                }
-
-            );
-
-            const data =
-            await response.json();
-
-            message.innerText =
-            data.message;
-
-            if (response.ok) {
-
-                localStorage.setItem(
-                    "userEmail",
-                    email
-                );
-
-                setTimeout(() => {
-
-                    window.location.href =
-                    "verify-otp.html";
-
-                }, 2000);
-
+    try {
+        const response = await fetch(
+            "https://YOUR-BACKEND-URL/api/auth/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password
+                })
             }
+        );
 
-        } catch (error) {
+        const data = await response.json();
 
-            console.log(error);
+        message.innerText = data.message;
 
-            message.innerText =
-            "Backend connection failed";
+        if (response.ok) {
+            localStorage.setItem("userEmail", email);
 
+            setTimeout(() => {
+                window.location.href = "./verify-otp.html";
+            }, 1500);
         }
 
+    } catch (error) {
+        console.log(error);
+        message.innerText = "Backend connection failed";
     }
-);
+});
 
 
 // SHOW PASSWORD
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
 
-const togglePassword =
-document.getElementById("togglePassword");
-
-const password =
-document.getElementById("password");
-
-togglePassword.addEventListener(
-    "click",
-    () => {
-
-        if (password.type === "password") {
-
-            password.type = "text";
-
-        } else {
-
-            password.type = "password";
-
-        }
-
-    }
-);
+if (togglePassword && password) {
+    togglePassword.addEventListener("click", () => {
+        password.type = password.type === "password"
+            ? "text"
+            : "password";
+    });
+}
 
 
-// DARK/LIGHT MODE
+// DARK / LIGHT MODE
+const themeBtn = document.getElementById("themeBtn");
 
-const themeBtn =
-document.getElementById("themeBtn");
-
-themeBtn.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light"
-        );
-
-    }
-);
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+    });
+}
