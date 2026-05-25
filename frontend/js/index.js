@@ -13,7 +13,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     try {
         const response = await fetch(
-            "https://YOUR-BACKEND-URL/api/auth/login",
+            "https://secure-login-system-pp91.onrender.com/api/auth/login",
             {
                 method: "POST",
                 headers: {
@@ -58,10 +58,9 @@ if (togglePassword && password) {
 }
 
 
-// ===================== DARK / LIGHT MODE (FIXED GLOBAL) =====================
+// ===================== DARK / LIGHT MODE =====================
 const themeBtn = document.getElementById("themeBtn");
 
-// Apply saved theme immediately
 document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
 
@@ -70,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Toggle theme
 if (themeBtn) {
     themeBtn.addEventListener("click", () => {
         document.body.classList.toggle("light");
