@@ -1,70 +1,131 @@
+const registerForm =
+document.getElementById("registerForm");
+
+const message =
+document.getElementById("message");
+
 
 // REGISTER FORM
-const registerForm = document.getElementById("registerForm");
-const message = document.getElementById("message");
 
-registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+registerForm.addEventListener(
+    "submit",
+    async (e) => {
 
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+        e.preventDefault();
 
-    message.innerText = "Registering...";
+        const username =
+        document.getElementById("username").value;
 
-    try {
-        const response = await fetch(
-            "https://secure-login-system-pp91.onrender.com/api/auth/register",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password
-                })
+        const email =
+        document.getElementById("email").value;
+
+        const password =
+        document.getElementById("password").value;
+
+        try {
+
+            const response = await fetch(
+
+                "http://localhost:5000/api/auth/register",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                        "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        username,
+
+                        email,
+
+                        password
+
+                    })
+
+                }
+
+            );
+
+            const data =
+            await response.json();
+
+            message.innerText =
+            data.message;
+
+            if (response.ok) {
+
+                localStorage.setItem(
+                    "userEmail",
+                    email
+                );
+
+                setTimeout(() => {
+
+                    window.location.href =
+                    "verify-otp.html";
+
+                }, 2000);
+
             }
-        );
 
-        const data = await response.json();
+        } catch (error) {
 
-        message.innerText = data.message;
+            console.log(error);
 
-        if (response.ok) {
-            localStorage.setItem("userEmail", email);
+            message.innerText =
+            "Backend connection failed";
 
-            setTimeout(() => {
-                window.location.href = "./verify-otp.html";
-            }, 1500);
         }
 
-    } catch (error) {
-        console.log(error);
-        message.innerText = "Backend connection failed";
     }
-});
+);
 
 
 // SHOW PASSWORD
-const togglePassword = document.getElementById("togglePassword");
-const password = document.getElementById("password");
 
-if (togglePassword && password) {
-    togglePassword.addEventListener("click", () => {
-        password.type = password.type === "password"
-            ? "text"
-            : "password";
-    });
-}
+const togglePassword =
+document.getElementById("togglePassword");
+
+const password =
+document.getElementById("password");
+
+togglePassword.addEventListener(
+    "click",
+    () => {
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+        } else {
+
+            password.type = "password";
+
+        }
+
+    }
+);
 
 
-// DARK / LIGHT MODE
-const themeBtn = document.getElementById("themeBtn");
+// DARK/LIGHT MODE
 
-if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("light");
-    });
-}
+const themeBtn =
+document.getElementById("themeBtn");
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light"
+        );
+
+    }
+);
