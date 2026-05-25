@@ -11,19 +11,22 @@ if (!token) {
 const username = localStorage.getItem("username");
 const email = localStorage.getItem("email");
 
-// DISPLAY USER DATA
-document.getElementById("username").innerText = username;
-document.getElementById("email").innerText = email;
+// DISPLAY USER DATA (SAFE CHECKS)
+const usernameEl = document.getElementById("username");
+const emailEl = document.getElementById("email");
+
+if (usernameEl) usernameEl.innerText = username || "User";
+if (emailEl) emailEl.innerText = email || "";
 
 // LOGOUT
 const logoutBtn = document.getElementById("logoutBtn");
 
-logoutBtn.addEventListener("click", () => {
-    localStorage.clear();
-
-    // FIXED REDIRECT
-    window.location.href = "./index.html";
-});
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "./index.html";
+    });
+}
 
 
 // DARK / LIGHT MODE
