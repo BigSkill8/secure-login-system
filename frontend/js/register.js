@@ -14,7 +14,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     try {
         const response = await fetch(
-            "https://YOUR-BACKEND-URL/api/auth/register",
+            "https://secure-login-system-pp91.onrender.com/api/auth/register",
             {
                 method: "POST",
                 headers: {
