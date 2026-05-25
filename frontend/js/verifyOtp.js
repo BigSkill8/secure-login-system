@@ -14,7 +14,7 @@ otpForm.addEventListener("submit", async (e) => {
 
     try {
         const response = await fetch(
-            "https://YOUR-BACKEND-URL/api/auth/verify-otp",
+            "https://secure-login-system-pp91.onrender.com/api/auth/verify-otp",
             {
                 method: "POST",
                 headers: {
@@ -48,7 +48,7 @@ otpForm.addEventListener("submit", async (e) => {
 });
 
 
-// DARK / LIGHT MODE (FIXED SAFE)
+// DARK / LIGHT MODE
 const themeBtn = document.getElementById("themeBtn");
 
 if (themeBtn) {
