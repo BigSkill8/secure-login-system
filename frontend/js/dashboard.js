@@ -1,39 +1,67 @@
+const token =
+localStorage.getItem("token");
 
-// GET TOKEN
-const token = localStorage.getItem("token");
 
 // PROTECT ROUTE
+
 if (!token) {
-    window.location.href = "./index.html";
+
+    window.location.href =
+    "login.html";
+
 }
+
 
 // USER DATA
-const username = localStorage.getItem("username");
-const email = localStorage.getItem("email");
 
-// DISPLAY USER DATA (SAFE CHECKS)
-const usernameEl = document.getElementById("username");
-const emailEl = document.getElementById("email");
+const username =
+localStorage.getItem("username");
 
-if (usernameEl) usernameEl.innerText = username || "User";
-if (emailEl) emailEl.innerText = email || "";
+const email =
+localStorage.getItem("email");
+
+
+// DISPLAY USER DATA
+
+document.getElementById(
+    "username"
+).innerText = username;
+
+document.getElementById(
+    "email"
+).innerText = email;
+
 
 // LOGOUT
-const logoutBtn = document.getElementById("logoutBtn");
 
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener(
+    "click",
+    () => {
+
         localStorage.clear();
-        window.location.href = "./index.html";
-    });
-}
+
+        window.location.href =
+        "login.html";
+
+    }
+);
 
 
-// DARK / LIGHT MODE
-const themeBtn = document.getElementById("themeBtn");
+// DARK/LIGHT MODE
 
-if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("light");
-    });
-}
+const themeBtn =
+document.getElementById("themeBtn");
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light-dashboard"
+        );
+
+    }
+);
