@@ -1,67 +1,36 @@
-const token =
-localStorage.getItem("token");
 
+// GET TOKEN
+const token = localStorage.getItem("token");
 
 // PROTECT ROUTE
-
 if (!token) {
-
-    window.location.href =
-    "login.html";
-
+    window.location.href = "./index.html";
 }
 
-
 // USER DATA
-
-const username =
-localStorage.getItem("username");
-
-const email =
-localStorage.getItem("email");
-
+const username = localStorage.getItem("username");
+const email = localStorage.getItem("email");
 
 // DISPLAY USER DATA
-
-document.getElementById(
-    "username"
-).innerText = username;
-
-document.getElementById(
-    "email"
-).innerText = email;
-
+document.getElementById("username").innerText = username;
+document.getElementById("email").innerText = email;
 
 // LOGOUT
+const logoutBtn = document.getElementById("logoutBtn");
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+logoutBtn.addEventListener("click", () => {
+    localStorage.clear();
 
-logoutBtn.addEventListener(
-    "click",
-    () => {
-
-        localStorage.clear();
-
-        window.location.href =
-        "login.html";
-
-    }
-);
+    // FIXED REDIRECT
+    window.location.href = "./index.html";
+});
 
 
-// DARK/LIGHT MODE
+// DARK / LIGHT MODE
+const themeBtn = document.getElementById("themeBtn");
 
-const themeBtn =
-document.getElementById("themeBtn");
-
-themeBtn.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light-dashboard"
-        );
-
-    }
-);
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+    });
+}
