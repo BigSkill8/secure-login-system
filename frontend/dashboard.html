@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SecureAuth Dashboard</title>
+
+    <link rel="stylesheet"
+          href="./css/style.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <h2>SecureAuth</h2>
+
+            </div>
+
+            <div class="profile-section">
+
+                <div class="avatar">
+
+                    👨‍💻
+
+                </div>
+
+                <h3 id="username"></h3>
+
+                <p>Verified User</p>
+
+            </div>
+
+            <nav class="sidebar-menu">
+
+                <a href="#" class="active">
+                    Dashboard
+                </a>
+
+                <a href="#">
+                    Profile
+                </a>
+
+                <a href="#">
+                    Security
+                </a>
+
+                <a href="#">
+                    Sessions
+                </a>
+
+                <a href="#">
+                    Settings
+                </a>
+
+            </nav>
+
+            <button id="logoutBtn">
+
+                Logout
+
+            </button>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+
+            <div class="topbar">
+
+                <h1>
+
+                    Welcome Back 👋
+
+                </h1>
+
+                <button id="themeBtn">
+
+                    🌙
+
+                </button>
+
+            </div>
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <h3>Total Logins</h3>
+
+                    <p>148</p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>Verified Users</h3>
+
+                    <p>100%</p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>Security Score</h3>
+
+                    <p>98%</p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>JWT Active</h3>
+
+                    <p>Enabled</p>
+
+                </div>
+
+            </div>
+
+            <!-- PANELS -->
+
+            <div class="dashboard-panels">
+
+                <!-- ACTIVITY -->
+
+                <div class="panel">
+
+                    <h2>
+
+                        Recent Activity
+
+                    </h2>
+
+                    <div class="activity-item">
+
+                        ✅ Login Successful
+
+                    </div>
+
+                    <div class="activity-item">
+
+                        🔐 OTP Verified
+
+                    </div>
+
+                    <div class="activity-item">
+
+                        🛡 Password Encrypted
+
+                    </div>
+
+                    <div class="activity-item">
+
+                        ⚡ JWT Session Active
+
+                    </div>
+
+                </div>
+
+                <!-- ACCOUNT -->
+
+                <div class="panel">
+
+                    <h2>
+
+                        Account Details
+
+                    </h2>
+
+                    <p>
+
+                        <strong>Email:</strong>
+
+                        <span id="email"></span>
+
+                    </p>
+
+                    <p>
+
+                        <strong>Status:</strong>
+
+                        Verified ✅
+
+                    </p>
+
+                    <p>
+
+                        <strong>Authentication:</strong>
+
+                        JWT Protected
+
+                    </p>
+
+                    <p>
+
+                        <strong>Database:</strong>
+
+                        MongoDB Atlas
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="./js/dashboard.js"></script>
+
+</body>
+
+</html>

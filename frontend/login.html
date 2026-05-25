@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+    <link rel="stylesheet"
+          href="./css/style.css">
+
+</head>
+
+<body>
+
+    <div class="theme-toggle">
+
+        <button id="themeBtn">
+            🌙
+        </button>
+
+    </div>
+
+    <div class="bg-blur blur1"></div>
+    <div class="bg-blur blur2"></div>
+
+    <div class="container">
+
+        <div class="glass-card">
+
+            <h1>Welcome Back</h1>
+
+            <p class="subtitle">
+
+                Login to your account
+
+            </p>
+
+            <form id="loginForm">
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    required
+                >
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        required
+                    >
+
+                    <span id="togglePassword">
+
+                        👁
+
+                    </span>
+
+                </div>
+
+                <button type="submit">
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <p id="message"></p>
+
+            <p class="switch-page">
+
+                Don’t have an account?
+
+                <a href="register.html">
+                    Register
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="./js/login.js"></script>
+
+</body>
+
+</html>
