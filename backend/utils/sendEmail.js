@@ -1,37 +1,36 @@
-const { Resend } = require("resend");
+const emailjs = require("@emailjs/nodejs");
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// EMAILJS CREDENTIALS
+const SERVICE_ID = "service_etryfes";
+const TEMPLATE_ID = "template_chzqpol";
+const PUBLIC_KEY = "v-2v76AUeztXzwke_";
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, otp) => {
     try {
+        console.log("🔥 EMAILJS OTP FUNCTION CALLED");
 
-        console.log("🔥 RESEND EMAIL FUNCTION CALLED");
+        const result = await emailjs.send(
+            SERVICE_ID,
+            TEMPLATE_ID,
+            {
+                to_email: to,
+                otp: otp
+            },
+            {
+                publicKey: PUBLIC_KEY
+            }
+        );
 
-        if (!process.env.RESEND_API_KEY) {
-            throw new Error("Missing RESEND_API_KEY");
-        }
+        console.log("✅ OTP EMAIL SENT SUCCESSFULLY");
+        console.log("Response:", result.status);
 
-        const data = await resend.emails.send({
-            from: "SecureAuth <onboarding@resend.dev>",
-            to,
-            subject,
-            text
-        });
-
-        // 🔥 IMPORTANT DEBUG LOG (THIS IS WHAT WE NEED)
-        console.log("📩 RESEND FULL RESPONSE:");
-        console.log(JSON.stringify(data, null, 2));
-
-        console.log("✅ EMAIL REQUEST ACCEPTED BY RESEND");
-
-        return data;
+        return result;
 
     } catch (error) {
+        console.log("❌ EMAILJS ERROR");
+        console.log(error.message);
 
-        console.log("❌ EMAIL FAILED");
-        console.log("Reason:", error.message);
-
-        throw error;
+        throw new Error("Email sending failed");
     }
 };
 
