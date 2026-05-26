@@ -150,25 +150,23 @@ togglePassword.addEventListener(
 // DARK / LIGHT MODE (FIXED)
 const themeBtn = document.getElementById("themeBtn");
 
-// optional safety check
 if (themeBtn) {
     themeBtn.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
 
-        // save theme
-        if (document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("theme", "dark");
-        } else {
-            localStorage.setItem("theme", "light");
-        }
+        // optional save
+        localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark-mode")
+                ? "dark"
+                : "light"
+        );
     });
 }
 
-// apply saved theme on load
+// apply saved theme
 document.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark") {
+    if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark-mode");
     }
 });
