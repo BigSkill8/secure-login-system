@@ -1,7 +1,3 @@
-/* =========================
-RESET
-========================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -10,24 +6,25 @@ RESET
 }
 
 /* =========================
-GLOBAL THEME SYSTEM
+THEME SYSTEM (UNIFIED)
 ========================= */
 
+/* DEFAULT = DARK MODE */
 body {
-    background: #f8fafc;
-    color: #111827;
     min-height: 100vh;
-    transition: 0.4s ease;
-}
-
-/* DARK MODE (APPLIES TO ALL PAGES) */
-body.dark-mode {
     background: #0f172a;
-    color: #ffffff;
+    color: white;
+    transition: 0.4s;
+}
+
+/* LIGHT MODE */
+body.light-mode {
+    background: #f1f5f9;
+    color: #111827;
 }
 
 /* =========================
-AUTH PAGES (LOGIN / REGISTER / OTP)
+AUTH PAGES LAYOUT FIX
 ========================= */
 
 .auth-body {
@@ -35,26 +32,19 @@ AUTH PAGES (LOGIN / REGISTER / OTP)
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
-/* background for auth pages */
-.auth-body {
-    background: linear-gradient(135deg, #dbeafe, #f8fafc, #bfdbfe);
-}
-
-body.dark-mode .auth-body {
-    background: linear-gradient(135deg, #0f172a, #1e293b, #111827);
-}
-
-/* =========================
-CONTAINER CENTER FIX
-========================= */
-
+/* CENTER FIX (IMPORTANT FOR YOUR ISSUE) */
 .container {
+    position: relative;
     width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 /* =========================
@@ -66,21 +56,18 @@ GLASS CARD
     max-width: 420px;
     padding: 40px;
     border-radius: 25px;
-
-    background: rgba(255,255,255,0.75);
-    color: #111827;
-
+    background: rgba(255,255,255,0.1);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(0,0,0,0.05);
-
-    transition: 0.4s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    text-align: center;
+    color: white;
 }
 
-/* DARK CARD */
-body.dark-mode .glass-card {
-    background: rgba(255,255,255,0.08);
-    color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.1);
+/* LIGHT MODE CARD */
+body.light-mode .glass-card {
+    background: rgba(255,255,255,0.7);
+    color: #111827;
 }
 
 /* =========================
@@ -91,21 +78,21 @@ INPUTS
     width: 100%;
     padding: 14px;
     margin: 10px 0;
-    border-radius: 12px;
     border: none;
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 15px;
+}
 
-    background: #ffffff;
+body.light-mode .glass-card input {
+    background: rgba(0,0,0,0.05);
     color: #111827;
 }
 
-/* DARK INPUT */
-body.dark-mode .glass-card input {
-    background: rgba(255,255,255,0.1);
-    color: #ffffff;
-}
-
-body.dark-mode .glass-card input::placeholder {
-    color: rgba(255,255,255,0.6);
+.glass-card input::placeholder {
+    color: rgba(255,255,255,0.7);
 }
 
 /* =========================
@@ -116,13 +103,11 @@ BUTTON
     width: 100%;
     padding: 14px;
     margin-top: 15px;
-
     border: none;
     border-radius: 12px;
-
     background: linear-gradient(135deg, #3b82f6, #9333ea);
     color: white;
-
+    font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -141,8 +126,32 @@ THEME BUTTON
     right: 20px;
 }
 
+.theme-toggle button {
+    padding: 10px 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
 /* =========================
-LOADER / MESSAGE
+MESSAGE + STATUS
+========================= */
+
+#message {
+    margin-top: 15px;
+}
+
+.success {
+    color: #22c55e;
+}
+
+.error {
+    color: #ef4444;
+}
+
+/* =========================
+LOADER
 ========================= */
 
 .loader {
@@ -161,16 +170,23 @@ LOADER / MESSAGE
     }
 }
 
-.success {
-    color: #22c55e;
+/* =========================
+SWITCH LINKS
+========================= */
+
+.switch-page {
+    margin-top: 20px;
+    font-size: 14px;
 }
 
-.error {
-    color: #ef4444;
+.switch-page a {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 /* =========================
-DASHBOARD LAYOUT
+DASHBOARD
 ========================= */
 
 .dashboard-layout {
@@ -181,43 +197,86 @@ DASHBOARD LAYOUT
 /* SIDEBAR */
 .sidebar {
     width: 260px;
-    padding: 25px;
-    background: #ffffff;
-    color: #111827;
-}
-
-/* DARK SIDEBAR */
-body.dark-mode .sidebar {
     background: rgba(255,255,255,0.05);
-    color: #ffffff;
+    backdrop-filter: blur(20px);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* DASHBOARD PANELS */
-.panel,
-.stat-card {
-    background: #ffffff;
+/* LIGHT SIDEBAR */
+body.light-mode .sidebar {
+    background: rgba(255,255,255,0.8);
+}
+
+/* MENU */
+.sidebar-menu a {
+    display: block;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    background: rgba(255,255,255,0.05);
+}
+
+body.light-mode .sidebar-menu a {
     color: #111827;
+}
+
+/* ACTIVE/HOVER */
+.sidebar-menu a:hover {
+    background: linear-gradient(135deg, #3b82f6, #9333ea);
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+/* TOPBAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* STAT CARDS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
     padding: 25px;
     border-radius: 20px;
-}
-
-/* DARK DASHBOARD */
-body.dark-mode .panel,
-body.dark-mode .stat-card {
     background: rgba(255,255,255,0.05);
-    color: #ffffff;
 }
 
-/* =========================
-RESPONSIVE
-========================= */
+body.light-mode .stat-card {
+    background: rgba(255,255,255,0.8);
+}
 
-@media (max-width: 900px) {
-    .dashboard-layout {
-        flex-direction: column;
-    }
+/* PANELS */
+.panel {
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+}
 
-    .sidebar {
-        width: 100%;
-    }
+body.light-mode .panel {
+    background: rgba(255,255,255,0.8);
+}
+
+/* LOGOUT */
+#logoutBtn {
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #ef4444;
+    color: white;
+    cursor: pointer;
 }
