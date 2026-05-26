@@ -2,43 +2,33 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login</title>
 
-    <link rel="stylesheet"
-          href="./css/style.css">
-
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body>
+<body class="auth-body dark-mode">
 
+    <!-- THEME BUTTON -->
     <div class="theme-toggle">
-
-        <button id="themeBtn">
-            🌙
-        </button>
-
+        <button id="themeBtn">🌙</button>
     </div>
 
+    <!-- BACKGROUND -->
     <div class="bg-blur blur1"></div>
     <div class="bg-blur blur2"></div>
 
+    <!-- LOGIN CONTAINER -->
     <div class="container">
 
         <div class="glass-card">
 
             <h1>Welcome Back</h1>
 
-            <p class="subtitle">
-
-                Login to your account
-
-            </p>
+            <p class="subtitle">Login to your account</p>
 
             <form id="loginForm">
 
@@ -58,39 +48,29 @@
                         required
                     >
 
-                    <span id="togglePassword">
-
-                        👁
-
-                    </span>
+                    <span id="togglePassword">👁</span>
 
                 </div>
 
-                <button type="submit">
-
-                    Login
-
-                </button>
+                <button type="submit">Login</button>
 
             </form>
 
             <p id="message"></p>
 
+            <!-- FIXED LINK -->
             <p class="switch-page">
-
                 Don’t have an account?
-
-                <a href="register.html">
-                    Register
-                </a>
-
+                <a href="./register.html">Register</a>
             </p>
 
         </div>
 
     </div>
 
+    <!-- JS FILES -->
     <script src="./js/login.js"></script>
+    <script src="./js/theme.js"></script>
 
 </body>
 
