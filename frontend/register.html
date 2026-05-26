@@ -2,41 +2,33 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SecureAuth Register</title>
 
-    <link rel="stylesheet"
-          href="./css/style.css">
-
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body>
+<body class="auth-body dark-mode">
 
+    <!-- THEME BUTTON -->
     <div class="theme-toggle">
-
-        <button id="themeBtn">
-            🌙
-        </button>
-
+        <button id="themeBtn">🌙</button>
     </div>
 
+    <!-- BACKGROUND -->
     <div class="bg-blur blur1"></div>
     <div class="bg-blur blur2"></div>
 
+    <!-- REGISTER CONTAINER -->
     <div class="container">
 
         <div class="glass-card">
 
             <h1>SecureAuth</h1>
 
-            <p class="subtitle">
-                Create your secure account
-            </p>
+            <p class="subtitle">Create your secure account</p>
 
             <form id="registerForm">
 
@@ -63,37 +55,29 @@
                         required
                     >
 
-                    <span id="togglePassword">
-                        👁
-                    </span>
+                    <span id="togglePassword">👁</span>
 
                 </div>
 
-                <button type="submit">
-
-                    Register
-
-                </button>
+                <button type="submit">Register</button>
 
             </form>
 
             <p id="message"></p>
 
+            <!-- FIXED LINK (NO 404) -->
             <p class="switch-page">
-
                 Already have an account?
-
-                <a href="login.html">
-                    Login
-                </a>
-
+                <a href="./index.html">Login</a>
             </p>
 
         </div>
 
     </div>
 
+    <!-- JS FILES -->
     <script src="./js/register.js"></script>
+    <script src="./js/theme.js"></script>
 
 </body>
 
