@@ -1,6 +1,7 @@
 /* =========================
 RESET
 ========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,24 +10,24 @@ RESET
 }
 
 /* =========================
-GLOBAL THEME
+GLOBAL THEME SYSTEM
 ========================= */
 
 body {
-    background: #f8fafc;   /* LIGHT MODE */
+    background: #f8fafc;
     color: #111827;
     min-height: 100vh;
     transition: 0.4s ease;
 }
 
-/* DARK MODE */
+/* DARK MODE (APPLIES TO ALL PAGES) */
 body.dark-mode {
     background: #0f172a;
     color: #ffffff;
 }
 
 /* =========================
-AUTH BACKGROUND
+AUTH PAGES (LOGIN / REGISTER / OTP)
 ========================= */
 
 .auth-body {
@@ -34,14 +35,26 @@ AUTH BACKGROUND
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    transition: 0.4s ease;
+}
 
+/* background for auth pages */
+.auth-body {
     background: linear-gradient(135deg, #dbeafe, #f8fafc, #bfdbfe);
 }
 
 body.dark-mode .auth-body {
     background: linear-gradient(135deg, #0f172a, #1e293b, #111827);
+}
+
+/* =========================
+CONTAINER CENTER FIX
+========================= */
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* =========================
@@ -59,7 +72,6 @@ GLASS CARD
 
     backdrop-filter: blur(15px);
     border: 1px solid rgba(0,0,0,0.05);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 
     transition: 0.4s ease;
 }
@@ -84,10 +96,6 @@ INPUTS
 
     background: #ffffff;
     color: #111827;
-}
-
-.glass-card input::placeholder {
-    color: #6b7280;
 }
 
 /* DARK INPUT */
@@ -134,7 +142,35 @@ THEME BUTTON
 }
 
 /* =========================
-DASHBOARD
+LOADER / MESSAGE
+========================= */
+
+.loader {
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.success {
+    color: #22c55e;
+}
+
+.error {
+    color: #ef4444;
+}
+
+/* =========================
+DASHBOARD LAYOUT
 ========================= */
 
 .dashboard-layout {
@@ -146,7 +182,6 @@ DASHBOARD
 .sidebar {
     width: 260px;
     padding: 25px;
-
     background: #ffffff;
     color: #111827;
 }
@@ -157,7 +192,7 @@ body.dark-mode .sidebar {
     color: #ffffff;
 }
 
-/* PANELS */
+/* DASHBOARD PANELS */
 .panel,
 .stat-card {
     background: #ffffff;
@@ -166,17 +201,11 @@ body.dark-mode .sidebar {
     border-radius: 20px;
 }
 
-/* DARK PANELS */
+/* DARK DASHBOARD */
 body.dark-mode .panel,
 body.dark-mode .stat-card {
     background: rgba(255,255,255,0.05);
     color: #ffffff;
-}
-
-/* MENU LINKS */
-.sidebar-menu a {
-    color: inherit;
-    text-decoration: none;
 }
 
 /* =========================
@@ -191,12 +220,4 @@ RESPONSIVE
     .sidebar {
         width: 100%;
     }
-}
-
-/*safety proof css*/
-
-body.auth-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
