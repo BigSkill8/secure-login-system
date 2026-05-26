@@ -1,164 +1,84 @@
-const loginForm =
-document.getElementById("loginForm");
+const API_BASE = "https://secure-login-system-pp91.onrender.com/api/auth";
 
-const message =
-document.getElementById("message");
-
+const loginForm = document.getElementById("loginForm");
+const message = document.getElementById("message");
 
 // LOGIN FORM
-
-loginForm.addEventListener(
-    "submit",
-    async (e) => {
-
+if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const email =
-        document.getElementById("email").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-        const password =
-        document.getElementById("password").value;
-
-        // SHOW LOADER
-
-        message.innerHTML =
-        `<div class="loader"></div>`;
+        message.innerHTML = `<div class="loader"></div>`;
 
         try {
+            const response = await fetch(`${API_BASE}/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-            const response = await fetch(
-
-                "http://localhost:5000/api/auth/login",
-
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                        "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        email,
-
-                        password
-
-                    })
-
-                }
-
-            );
-
-            const data =
-            await response.json();
-
-            // SUCCESS
+            const data = await response.json();
 
             if (response.ok) {
+                message.innerHTML = `<span class="success">Login Successful</span>`;
 
-                message.innerHTML =
-                `<span class="success">
-                    Login Successful
-                </span>`;
-
-                // SAVE JWT TOKEN
-
-                localStorage.setItem(
-                    "token",
-                    data.token
-                );
-
-                // SAVE USER
-
-                localStorage.setItem(
-                    "username",
-                    data.user.username
-                );
-
-                localStorage.setItem(
-                    "email",
-                    data.user.email
-                );
+                // SAVE DATA
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("username", data.user.username);
+                localStorage.setItem("email", data.user.email);
 
                 // REDIRECT
-
                 setTimeout(() => {
+                    window.location.href = "./dashboard.html";
+                }, 1200);
 
-                    window.location.href =
-                    "dashboard.html";
-
-                }, 1500);
-
-            }
-
-            // ERROR
-
-            else {
-
-                message.innerHTML =
-                `<span class="error">
-                    ${data.message}
-                </span>`;
-
+            } else {
+                message.innerHTML = `<span class="error">${data.message}</span>`;
             }
 
         } catch (error) {
-
             console.log(error);
-
-            message.innerHTML =
-            `<span class="error">
-                Login failed
-            </span>`;
-
+            message.innerHTML = `<span class="error">Server connection failed</span>`;
         }
-
-    }
-);
+    });
+}
 
 
 // SHOW PASSWORD
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
 
-const togglePassword =
-document.getElementById("togglePassword");
-
-const password =
-document.getElementById("password");
-
-togglePassword.addEventListener(
-    "click",
-    () => {
-
-        if (password.type === "password") {
-
-            password.type = "text";
-
-        } else {
-
-            password.type = "password";
-
-        }
-
-    }
-);
+if (togglePassword && password) {
+    togglePassword.addEventListener("click", () => {
+        password.type = password.type === "password"
+            ? "text"
+            : "password";
+    });
+}
 
 
-// DARK/LIGHT MODE
+// THEME TOGGLE (SAFE)
+const themeBtn = document.getElementById("themeBtn");
 
-const themeBtn =
-document.getElementById("themeBtn");
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
 
-themeBtn.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light"
+        localStorage.setItem(
+            "theme",
+            document.body.classList.contains("light") ? "light" : "dark"
         );
+    });
+}
 
+// APPLY THEME ON LOAD
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light");
     }
-);
+});
