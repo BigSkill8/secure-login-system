@@ -280,3 +280,34 @@ body.light-mode .panel {
     color: white;
     cursor: pointer;
 }
+
+/* =========================
+PASSWORD FIELD FIX (EYE ICON)
+========================= */
+
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.password-box input {
+    width: 100%;
+    padding-right: 45px; /* space for eye icon */
+}
+
+/* EYE ICON INSIDE INPUT */
+#togglePassword {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.7;
+    user-select: none;
+    transition: 0.2s;
+}
+
+#togglePassword:hover {
+    opacity: 1;
+}
