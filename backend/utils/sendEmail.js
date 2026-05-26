@@ -1,9 +1,9 @@
 const emailjs = require("@emailjs/nodejs");
 
-// EmailJS credentials
 const SERVICE_ID = "service_etryfes";
 const TEMPLATE_ID = "template_chzqpol";
 const PUBLIC_KEY = "v-2v76AUeztXzwke_";
+const PRIVATE_KEY = "2xluVC1fuGgFTzNgAzqJS";
 
 const sendEmail = async (to, otp) => {
     try {
@@ -17,12 +17,13 @@ const sendEmail = async (to, otp) => {
                 otp: otp
             },
             {
-                publicKey: PUBLIC_KEY
+                publicKey: PUBLIC_KEY,
+                privateKey: PRIVATE_KEY
             }
         );
 
         console.log("✅ EMAIL SENT SUCCESSFULLY");
-        console.log("Response Status:", response.status);
+        console.log("Response:", response.status);
 
         return response;
 
