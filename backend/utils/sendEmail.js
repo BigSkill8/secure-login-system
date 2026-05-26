@@ -9,22 +9,20 @@ const sendEmail = async (to, otp) => {
     try {
         console.log("🔥 EMAILJS OTP FUNCTION CALLED");
 
-        const templateParams = {
-            to_email: to,
-            otp: otp
-        };
-
         const response = await emailjs.send(
             SERVICE_ID,
             TEMPLATE_ID,
-            templateParams,
+            {
+                to_email: to,
+                otp: otp
+            },
             {
                 publicKey: PUBLIC_KEY
             }
         );
 
         console.log("✅ EMAIL SENT SUCCESSFULLY");
-        console.log(response);
+        console.log("Response Status:", response.status);
 
         return response;
 
