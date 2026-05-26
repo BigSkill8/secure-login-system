@@ -1,119 +1,72 @@
-const otpForm =
-document.getElementById("otpForm");
+// ===================== OTP FORM =====================
+const otpForm = document.getElementById("otpForm");
+const message = document.getElementById("message");
 
-const message =
-document.getElementById("message");
+// FIX: safe email retrieval
+const email = localStorage.getItem("userEmail");
 
-const email =
-localStorage.getItem("userEmail");
+otpForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
+    const otp = document.getElementById("otp").value;
 
-// VERIFY OTP
+    message.innerHTML = `<div class="loader"></div>`;
 
-otpForm.addEventListener(
-    "submit",
-    async (e) => {
-
-        e.preventDefault();
-
-        const otp =
-        document.getElementById("otp").value;
-
-        // SHOW LOADER
-
-        message.innerHTML =
-        `<div class="loader"></div>`;
-
-        try {
-
-            const response = await fetch(
-
-                "http://localhost:5000/api/auth/verify-otp",
-
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                        "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        email,
-
-                        otp
-
-                    })
-
-                }
-
-            );
-
-            const data =
-            await response.json();
-
-            // SUCCESS
-
-            if (response.ok) {
-
-                message.innerHTML =
-                `<span class="success">
-                    ${data.message}
-                </span>`;
-
-                // REDIRECT
-
-                setTimeout(() => {
-
-                    window.location.href =
-                    "login.html";
-
-                }, 1500);
-
+    try {
+        const response = await fetch(
+            "https://secure-login-system-pp91.onrender.com/api/auth/verify-otp",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    otp
+                })
             }
-
-            // ERROR
-
-            else {
-
-                message.innerHTML =
-                `<span class="error">
-                    ${data.message}
-                </span>`;
-
-            }
-
-        } catch (error) {
-
-            console.log(error);
-
-            message.innerHTML =
-            `<span class="error">
-                Backend connection failed
-            </span>`;
-
-        }
-
-    }
-);
-
-
-// DARK/LIGHT MODE
-
-const themeBtn =
-document.getElementById("themeBtn");
-
-themeBtn.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light"
         );
 
+        const data = await response.json();
+
+        if (response.ok) {
+
+            message.innerHTML = `<span class="success">${data.message}</span>`;
+
+            // FIXED FLOW → GO TO LOGIN FIRST OR DASHBOARD (choose login for safety)
+            setTimeout(() => {
+                window.location.href = "./index.html";
+            }, 1500);
+
+        } else {
+            message.innerHTML = `<span class="error">${data.message}</span>`;
+        }
+
+    } catch (error) {
+        console.log(error);
+        message.innerHTML = `<span class="error">Server not reachable</span>`;
     }
-);
+});
+
+
+// ===================== THEME FIX =====================
+const themeBtn = document.getElementById("themeBtn");
+
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        // optional persistence
+        localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+    });
+}
+
+// APPLY SAVED THEME
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+});
