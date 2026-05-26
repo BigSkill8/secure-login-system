@@ -19,7 +19,8 @@ if (otpForm) {
         message.innerHTML = `<div class="loader"></div>`;
 
         try {
-            const response = await fetch(`${API_BASE}/verify-otp`, {
+            const response = await fetch(
+    `${API_BASE_URL}/verify-otp`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
