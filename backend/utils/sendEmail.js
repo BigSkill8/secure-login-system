@@ -3,10 +3,16 @@ const nodemailer = require("nodemailer");
 const sendEmail = async (to, subject, text) => {
     try {
 
+        // ==============================
+        // ENV CHECK
+        // ==============================
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            throw new Error("Email credentials missing in environment variables");
+            throw new Error("Missing EMAIL_USER or EMAIL_PASS in environment variables");
         }
 
+        // ==============================
+        // TRANSPORTER
+        // ==============================
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
@@ -17,9 +23,15 @@ const sendEmail = async (to, subject, text) => {
             }
         });
 
-        // verify connection (VERY IMPORTANT for Render debugging)
-        await transporter.verify();
+        // ==============================
+        // REMOVE verify() FOR RENDER STABILITY
+        // ==============================
+        // FIX: verify() sometimes breaks cold starts on Render
+        // await transporter.verify();
 
+        // ==============================
+        // EMAIL OPTIONS
+        // ==============================
         const mailOptions = {
             from: `"SecureAuth" <${process.env.EMAIL_USER}>`,
             to,
@@ -27,18 +39,22 @@ const sendEmail = async (to, subject, text) => {
             text
         };
 
+        // ==============================
+        // SEND EMAIL
+        // ==============================
         const info = await transporter.sendMail(mailOptions);
 
         console.log("✅ EMAIL SENT SUCCESSFULLY");
-        console.log("Response:", info.response);
+        console.log("Message ID:", info.messageId);
 
         return info;
 
     } catch (error) {
-        console.log("❌ EMAIL ERROR:");
-        console.log(error.message);
 
-        throw error;
+        console.log("❌ EMAIL SENDING FAILED");
+        console.log("Reason:", error.message);
+
+        throw new Error("Email sending failed");
     }
 };
 
