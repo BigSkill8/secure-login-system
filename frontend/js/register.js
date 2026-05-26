@@ -1,131 +1,69 @@
-const registerForm =
-document.getElementById("registerForm");
+const API_BASE = "https://secure-login-system-pp91.onrender.com/api/auth";
 
-const message =
-document.getElementById("message");
-
+const registerForm = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
 // REGISTER FORM
+registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-registerForm.addEventListener(
-    "submit",
-    async (e) => {
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-        e.preventDefault();
+    message.innerText = "Registering...";
 
-        const username =
-        document.getElementById("username").value;
+    try {
+        const response = await fetch(`${API_BASE}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password
+            })
+        });
 
-        const email =
-        document.getElementById("email").value;
+        const data = await response.json();
 
-        const password =
-        document.getElementById("password").value;
+        message.innerText = data.message;
 
-        try {
+        if (response.ok) {
+            // store email for OTP step
+            localStorage.setItem("userEmail", email);
 
-            const response = await fetch(
-
-                "http://localhost:5000/api/auth/register",
-
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                        "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        username,
-
-                        email,
-
-                        password
-
-                    })
-
-                }
-
-            );
-
-            const data =
-            await response.json();
-
-            message.innerText =
-            data.message;
-
-            if (response.ok) {
-
-                localStorage.setItem(
-                    "userEmail",
-                    email
-                );
-
-                setTimeout(() => {
-
-                    window.location.href =
-                    "verify-otp.html";
-
-                }, 2000);
-
-            }
-
-        } catch (error) {
-
-            console.log(error);
-
-            message.innerText =
-            "Backend connection failed";
-
+            setTimeout(() => {
+                window.location.href = "./verify-otp.html";
+            }, 1500);
         }
 
+    } catch (error) {
+        console.log(error);
+        message.innerText = "Server connection failed";
     }
-);
+});
 
 
-// SHOW PASSWORD
+// SHOW PASSWORD (SAFE FIX)
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
 
-const togglePassword =
-document.getElementById("togglePassword");
-
-const password =
-document.getElementById("password");
-
-togglePassword.addEventListener(
-    "click",
-    () => {
-
-        if (password.type === "password") {
-
-            password.type = "text";
-
-        } else {
-
-            password.type = "password";
-
-        }
-
-    }
-);
+if (togglePassword && password) {
+    togglePassword.addEventListener("click", () => {
+        password.type = password.type === "password"
+            ? "text"
+            : "password";
+    });
+}
 
 
-// DARK/LIGHT MODE
+// THEME TOGGLE (SAFE FIX)
+const themeBtn = document.getElementById("themeBtn");
 
-const themeBtn =
-document.getElementById("themeBtn");
-
-themeBtn.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light"
-        );
-
-    }
-);
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+    });
+}
