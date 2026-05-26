@@ -2,48 +2,53 @@ const registerForm = document.getElementById("registerForm");
 const message = document.getElementById("message");
 
 // REGISTER FORM
-registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+if (registerForm) {
+    registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    message.innerText = "Registering...";
+        message.innerText = "Registering...";
 
-    try {
-        const response = await fetch(
-    `${API_BASE_URL}/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username,
-                email,
-                password
-            })
-        });
+        try {
+            const response = await fetch(
+                "https://secure-login-system-pp91.onrender.com/api/auth/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username,
+                        email,
+                        password
+                    })
+                }
+            );
 
-        const data = await response.json();
+            const data = await response.json();
 
-        message.innerText = data.message;
+            message.innerText = data.message || "Done";
 
-        if (response.ok) {
-            // store email for OTP step
-            localStorage.setItem("userEmail", email);
+            if (response.ok) {
 
-            setTimeout(() => {
-                window.location.href = "./verify-otp.html";
-            }, 1500);
+                // store email for OTP step
+                localStorage.setItem("userEmail", email);
+
+                setTimeout(() => {
+                    window.location.href = "./verify-otp.html";
+                }, 1200);
+
+            }
+
+        } catch (error) {
+            console.log(error);
+            message.innerText = "Server connection failed";
         }
-
-    } catch (error) {
-        console.log(error);
-        message.innerText = "Server connection failed";
-    }
-});
-
+    });
+}
 
 // SHOW PASSWORD (SAFE FIX)
 const togglePassword = document.getElementById("togglePassword");
@@ -51,12 +56,9 @@ const password = document.getElementById("password");
 
 if (togglePassword && password) {
     togglePassword.addEventListener("click", () => {
-        password.type = password.type === "password"
-            ? "text"
-            : "password";
+        password.type = password.type === "password" ? "text" : "password";
     });
 }
-
 
 // THEME TOGGLE (SAFE FIX)
 const themeBtn = document.getElementById("themeBtn");
