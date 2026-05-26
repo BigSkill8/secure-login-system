@@ -18,14 +18,18 @@ const sendEmail = async (to, subject, text) => {
             text
         });
 
-        console.log("✅ EMAIL SENT SUCCESSFULLY");
+        // 🔥 IMPORTANT DEBUG LOG (THIS IS WHAT WE NEED)
+        console.log("📩 RESEND FULL RESPONSE:");
+        console.log(JSON.stringify(data, null, 2));
+
+        console.log("✅ EMAIL REQUEST ACCEPTED BY RESEND");
 
         return data;
 
     } catch (error) {
 
         console.log("❌ EMAIL FAILED");
-        console.log(error.message);
+        console.log("Reason:", error.message);
 
         throw error;
     }
