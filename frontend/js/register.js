@@ -14,7 +14,8 @@ registerForm.addEventListener("submit", async (e) => {
     message.innerText = "Registering...";
 
     try {
-        const response = await fetch(`${API_BASE}/register`, {
+        const response = await fetch(
+    `${API_BASE_URL}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
