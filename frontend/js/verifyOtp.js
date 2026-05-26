@@ -1,48 +1,119 @@
-const otpForm = document.getElementById("otpForm");
-const message = document.getElementById("message");
+const otpForm =
+document.getElementById("otpForm");
 
-// IMPORTANT: use correct stored email key
-const email = localStorage.getItem("userEmail");
+const message =
+document.getElementById("message");
 
-otpForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+const email =
+localStorage.getItem("userEmail");
 
-    const otp = document.getElementById("otp").value;
 
-    message.innerHTML = `<div class="loader"></div>`;
+// VERIFY OTP
 
-    try {
-        const response = await fetch(
-            "https://secure-login-system-pp91.onrender.com/api/auth/verify-otp",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email,
-                    otp
-                })
+otpForm.addEventListener(
+    "submit",
+    async (e) => {
+
+        e.preventDefault();
+
+        const otp =
+        document.getElementById("otp").value;
+
+        // SHOW LOADER
+
+        message.innerHTML =
+        `<div class="loader"></div>`;
+
+        try {
+
+            const response = await fetch(
+
+                "http://localhost:5000/api/auth/verify-otp",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                        "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        email,
+
+                        otp
+
+                    })
+
+                }
+
+            );
+
+            const data =
+            await response.json();
+
+            // SUCCESS
+
+            if (response.ok) {
+
+                message.innerHTML =
+                `<span class="success">
+                    ${data.message}
+                </span>`;
+
+                // REDIRECT
+
+                setTimeout(() => {
+
+                    window.location.href =
+                    "login.html";
+
+                }, 1500);
+
             }
-        );
 
-        const data = await response.json();
+            // ERROR
 
-        if (response.ok) {
-            message.innerHTML = `<span class="success">${data.message}</span>`;
+            else {
 
-            // ✅ FIXED REDIRECT (GO TO DASHBOARD, NOT LOGIN LOOP)
-            setTimeout(() => {
-                window.location.href = "./dashboard.html";
-            }, 1500);
+                message.innerHTML =
+                `<span class="error">
+                    ${data.message}
+                </span>`;
 
-        } else {
-            message.innerHTML = `<span class="error">${data.message}</span>`;
+            }
+
+        } catch (error) {
+
+            console.log(error);
+
+            message.innerHTML =
+            `<span class="error">
+                Backend connection failed
+            </span>`;
+
         }
 
-    } catch (error) {
-        console.log(error);
-
-        message.innerHTML = `<span class="error">Backend connection failed</span>`;
     }
-});
+);
+
+
+// DARK/LIGHT MODE
+
+const themeBtn =
+document.getElementById("themeBtn");
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light"
+        );
+
+    }
+);
