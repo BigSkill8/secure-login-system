@@ -15,7 +15,8 @@
 
 </head>
 
-<body class="auth-body">
+<!-- IMPORTANT FIX -->
+<body>
 
     <div class="dashboard-layout">
 
@@ -23,49 +24,69 @@
 
         <aside class="sidebar">
 
-            <div class="logo">
+            <div>
 
-                <h2>SecureAuth</h2>
+                <!-- LOGO -->
 
-            </div>
+                <div class="logo">
 
-            <div class="profile-section">
-
-                <div class="avatar">
-
-                    👨‍💻
+                    <h2>SecureAuth</h2>
 
                 </div>
 
-                <h3 id="username"></h3>
+                <!-- PROFILE -->
 
-                <p>Verified User</p>
+                <div class="profile-section">
+
+                    <div class="avatar">
+
+                        👨‍💻
+
+                    </div>
+
+                    <h3 id="username">
+
+                        User
+
+                    </h3>
+
+                    <p>
+
+                        Verified User ✅
+
+                    </p>
+
+                </div>
+
+                <!-- MENU -->
+
+                <nav class="sidebar-menu">
+
+                    <a href="#" class="active">
+                        Dashboard
+                    </a>
+
+                    <a href="#">
+                        Profile
+                    </a>
+
+                    <a href="#">
+                        Security
+                    </a>
+
+                    <a href="#">
+                        Sessions
+                    </a>
+
+                    <a href="#">
+                        Settings
+                    </a>
+
+                </nav>
 
             </div>
 
-            <nav class="sidebar-menu">
-
-                <a href="#" class="active">
-                    Dashboard
-                </a>
-
-                <a href="#">
-                    Profile
-                </a>
-
-                <a href="#">
-                    Security
-                </a>
-
-                <a href="#">
-                    Sessions
-                </a>
-
-                <a href="#">
-                    Settings
-                </a>
-
-            </nav>
+            <!-- LOGOUT -->
 
             <button id="logoutBtn">
 
@@ -79,15 +100,25 @@
 
         <main class="main-content">
 
-            <!-- TOP BAR -->
+            <!-- TOPBAR -->
 
             <div class="topbar">
 
-                <h1>
+                <div>
 
-                    Welcome Back 👋
+                    <h1>
 
-                </h1>
+                        Welcome Back 👋
+
+                    </h1>
+
+                    <p>
+
+                        Your account is fully secured.
+
+                    </p>
+
+                </div>
 
                 <button id="themeBtn">
 
@@ -97,7 +128,7 @@
 
             </div>
 
-            <!-- STAT CARDS -->
+            <!-- STATS -->
 
             <div class="stats-grid">
 
@@ -139,7 +170,7 @@
 
             <div class="dashboard-panels">
 
-                <!-- ACTIVITY -->
+                <!-- ACTIVITY PANEL -->
 
                 <div class="panel">
 
@@ -149,11 +180,15 @@
 
                     </h2>
 
+                    <br>
+
                     <div class="activity-item">
 
                         ✅ Login Successful
 
                     </div>
+
+                    <br>
 
                     <div class="activity-item">
 
@@ -161,11 +196,15 @@
 
                     </div>
 
+                    <br>
+
                     <div class="activity-item">
 
                         🛡 Password Encrypted
 
                     </div>
+
+                    <br>
 
                     <div class="activity-item">
 
@@ -175,7 +214,7 @@
 
                 </div>
 
-                <!-- ACCOUNT -->
+                <!-- ACCOUNT PANEL -->
 
                 <div class="panel">
 
@@ -185,6 +224,8 @@
 
                     </h2>
 
+                    <br>
+
                     <p>
 
                         <strong>Email:</strong>
@@ -192,6 +233,8 @@
                         <span id="email"></span>
 
                     </p>
+
+                    <br>
 
                     <p>
 
@@ -201,6 +244,8 @@
 
                     </p>
 
+                    <br>
+
                     <p>
 
                         <strong>Authentication:</strong>
@@ -208,6 +253,8 @@
                         JWT Protected
 
                     </p>
+
+                    <br>
 
                     <p>
 
@@ -225,9 +272,11 @@
 
     </div>
 
-   <script src="./js/config.js"></script>
-<script src="./js/dashboard.js"></script>
-<script src="./js/theme.js"></script>
+    <!-- SCRIPTS -->
+
+    <script src="./js/config.js"></script>
+    <script src="./js/dashboard.js"></script>
+    <script src="./js/theme.js"></script>
 
 </body>
 
