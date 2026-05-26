@@ -14,18 +14,20 @@ const sendEmail = async (to, subject, text) => {
             throw new Error("Missing EMAIL credentials");
         }
 
-        // CREATE TRANSPORTER
+        // BREVO TRANSPORTER (FIXED)
         const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            family: 4, // force IPv4
-
+            host: "smtp-relay.brevo.com",
+            port: 587,
+            secure: false, // IMPORTANT for Brevo
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS
             }
         });
+
+        // VERIFY CONNECTION (IMPORTANT DEBUG STEP)
+        await transporter.verify();
+        console.log("✅ SMTP CONNECTION VERIFIED");
 
         // EMAIL DATA
         const mailOptions = {
