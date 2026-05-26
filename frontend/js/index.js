@@ -147,17 +147,28 @@ togglePassword.addEventListener(
 );
 
 
-// DARK/LIGHT MODE
+// DARK / LIGHT MODE (FIXED)
+const themeBtn = document.getElementById("themeBtn");
 
-const themeBtn =
-document.getElementById("themeBtn");
+// optional safety check
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
 
-themeBtn.addEventListener(
-    "click",
-    () => {
+        // save theme
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    });
+}
 
-       document.body.classList.toggle("dark-mode");
-        );
+// apply saved theme on load
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme");
 
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
     }
-);
+});
