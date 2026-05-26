@@ -1,50 +1,34 @@
-const token =
-localStorage.getItem("token");
-
+const token = localStorage.getItem("token");
 
 // PROTECT ROUTE
-
 if (!token) {
-
-    window.location.href =
-    "index.html";
-
+    window.location.href = "./index.html";
 }
 
-
 // USER DATA
+const username = localStorage.getItem("username");
+const email = localStorage.getItem("email");
 
-const username =
-localStorage.getItem("username");
+// SAFE ELEMENT CHECK (prevents null crashes)
+const usernameEl = document.getElementById("username");
+const emailEl = document.getElementById("email");
 
-const email =
-localStorage.getItem("email");
+if (usernameEl) {
+    usernameEl.innerText = username || "User";
+}
 
-
-// DISPLAY USER DATA
-
-document.getElementById(
-    "username"
-).innerText = username;
-
-document.getElementById(
-    "email"
-).innerText = email;
-
+if (emailEl) {
+    emailEl.innerText = email || "No email found";
+}
 
 // LOGOUT
+const logoutBtn = document.getElementById("logoutBtn");
 
-const logoutBtn =
-document.getElementById("logoutBtn");
-
-logoutBtn.addEventListener(
-    "click",
-    () => {
-
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
         localStorage.clear();
 
-        window.location.href =
-        "login.html";
-
-    }
-);
+        // always use relative path for Vercel
+        window.location.href = "./index.html";
+    });
+}
