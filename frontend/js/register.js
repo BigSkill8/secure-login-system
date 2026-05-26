@@ -1,62 +1,131 @@
-const registerForm = document.getElementById("registerForm");
-const message = document.getElementById("message");
+const registerForm =
+document.getElementById("registerForm");
+
+const message =
+document.getElementById("message");
+
 
 // REGISTER FORM
-registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+registerForm.addEventListener(
+    "submit",
+    async (e) => {
 
-    message.innerHTML = `<div class="loader"></div>`;
+        e.preventDefault();
 
-    try {
-        const response = await fetch(
-            "https://secure-login-system-pp91.onrender.com/api/auth/register",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password
-                })
+        const username =
+        document.getElementById("username").value;
+
+        const email =
+        document.getElementById("email").value;
+
+        const password =
+        document.getElementById("password").value;
+
+        try {
+
+            const response = await fetch(
+
+                "http://localhost:5000/api/auth/register",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                        "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        username,
+
+                        email,
+
+                        password
+
+                    })
+
+                }
+
+            );
+
+            const data =
+            await response.json();
+
+            message.innerText =
+            data.message;
+
+            if (response.ok) {
+
+                localStorage.setItem(
+                    "userEmail",
+                    email
+                );
+
+                setTimeout(() => {
+
+                    window.location.href =
+                    "verify-otp.html";
+
+                }, 2000);
+
             }
-        );
 
-        const data = await response.json();
+        } catch (error) {
 
-        if (response.ok) {
-            message.innerHTML = `<span class="success">${data.message}</span>`;
+            console.log(error);
 
-            // IMPORTANT: SAVE EMAIL FOR OTP STEP
-            localStorage.setItem("userEmail", email);
+            message.innerText =
+            "Backend connection failed";
 
-            // go to OTP page
-            setTimeout(() => {
-                window.location.href = "./verify-otp.html";
-            }, 1500);
-
-        } else {
-            message.innerHTML = `<span class="error">${data.message}</span>`;
         }
 
-    } catch (error) {
-        console.log(error);
-        message.innerHTML = `<span class="error">Backend connection failed</span>`;
     }
-});
+);
 
 
 // SHOW PASSWORD
-const togglePassword = document.getElementById("togglePassword");
-const password = document.getElementById("password");
 
-if (togglePassword && password) {
-    togglePassword.addEventListener("click", () => {
-        password.type = password.type === "password" ? "text" : "password";
-    });
-}
+const togglePassword =
+document.getElementById("togglePassword");
+
+const password =
+document.getElementById("password");
+
+togglePassword.addEventListener(
+    "click",
+    () => {
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+        } else {
+
+            password.type = "password";
+
+        }
+
+    }
+);
+
+
+// DARK/LIGHT MODE
+
+const themeBtn =
+document.getElementById("themeBtn");
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light"
+        );
+
+    }
+);
