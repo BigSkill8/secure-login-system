@@ -7,7 +7,7 @@ const sendEmail = require("../utils/sendEmail");
 
 
 // ==============================
-// REGISTER USER (FIXED)
+// REGISTER USER (FIXED EMAILJS)
 // ==============================
 const registerUser = async (req, res) => {
     try {
@@ -40,20 +40,14 @@ const registerUser = async (req, res) => {
 
         await user.save();
 
-        // ==============================
-        // EMAIL SEND (NON-BLOCKING FIX)
-        // ==============================
-        sendEmail(
-            email,
-            "SecureAuth OTP Verification",
-            `Your OTP Code is: ${otp}`
-        )
-        .then(() => {
-            console.log("OTP email sent successfully");
-        })
-        .catch((err) => {
-            console.log("EMAIL ERROR:", err);
-        });
+        // EMAILJS OTP SEND (FIXED)
+        sendEmail(email, otp)
+            .then(() => {
+                console.log("OTP email sent successfully");
+            })
+            .catch((err) => {
+                console.log("EMAIL ERROR:", err);
+            });
 
         return res.status(201).json({
             message: "User registered. OTP sent to email."
@@ -67,7 +61,7 @@ const registerUser = async (req, res) => {
 
 
 // ==============================
-// VERIFY OTP (STABLE)
+// VERIFY OTP
 // ==============================
 const verifyOTP = async (req, res) => {
     try {
@@ -113,7 +107,7 @@ const verifyOTP = async (req, res) => {
 
 
 // ==============================
-// LOGIN USER (OK)
+// LOGIN USER
 // ==============================
 const loginUser = async (req, res) => {
     try {
