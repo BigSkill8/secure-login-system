@@ -7,7 +7,7 @@ const sendEmail = require("../utils/sendEmail");
 
 
 // ==============================
-// REGISTER USER
+// REGISTER USER (FIXED)
 // ==============================
 const registerUser = async (req, res) => {
     try {
@@ -41,20 +41,19 @@ const registerUser = async (req, res) => {
         await user.save();
 
         // ==============================
-        // SAFE EMAIL SEND (NO CRASH)
+        // EMAIL SEND (NON-BLOCKING FIX)
         // ==============================
-        try {
-            await sendEmail(
-                email,
-                "SecureAuth OTP Verification",
-                `Your OTP Code is: ${otp}`
-            );
-        } catch (emailError) {
-            console.log("EMAIL ERROR:", emailError);
-            return res.status(500).json({
-                message: "User created but OTP email failed. Check email config."
-            });
-        }
+        sendEmail(
+            email,
+            "SecureAuth OTP Verification",
+            `Your OTP Code is: ${otp}`
+        )
+        .then(() => {
+            console.log("OTP email sent successfully");
+        })
+        .catch((err) => {
+            console.log("EMAIL ERROR:", err);
+        });
 
         return res.status(201).json({
             message: "User registered. OTP sent to email."
@@ -68,7 +67,7 @@ const registerUser = async (req, res) => {
 
 
 // ==============================
-// VERIFY OTP
+// VERIFY OTP (STABLE)
 // ==============================
 const verifyOTP = async (req, res) => {
     try {
@@ -84,13 +83,16 @@ const verifyOTP = async (req, res) => {
             return res.status(400).json({ message: "User not found" });
         }
 
-        // FIX: safe comparison
-        if (String(user.otp) !== String(otp)) {
-            return res.status(400).json({ message: "Invalid OTP" });
+        if (!user.otp || !user.otpExpires) {
+            return res.status(400).json({ message: "OTP not generated" });
         }
 
         if (user.otpExpires < new Date()) {
             return res.status(400).json({ message: "OTP expired" });
+        }
+
+        if (String(user.otp).trim() !== String(otp).trim()) {
+            return res.status(400).json({ message: "Invalid OTP" });
         }
 
         user.isVerified = true;
@@ -111,7 +113,7 @@ const verifyOTP = async (req, res) => {
 
 
 // ==============================
-// LOGIN USER
+// LOGIN USER (OK)
 // ==============================
 const loginUser = async (req, res) => {
     try {
