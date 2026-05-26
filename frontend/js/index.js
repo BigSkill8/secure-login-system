@@ -13,31 +13,34 @@ if (loginForm) {
 
         try {
             const response = await fetch(
-    `${API_BASE_URL}/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password })
-            });
+                "https://secure-login-system-pp91.onrender.com/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, password })
+                }
+            );
 
             const data = await response.json();
 
-            if (response.ok) {
+            if (response.ok && data.token) {
+
                 message.innerHTML = `<span class="success">Login Successful</span>`;
 
-                // SAVE DATA
+                // SAVE AUTH DATA
                 localStorage.setItem("token", data.token);
-                localStorage.setItem("username", data.user.username);
-                localStorage.setItem("email", data.user.email);
+                localStorage.setItem("username", data.user?.username || "");
+                localStorage.setItem("email", data.user?.email || "");
 
-                // REDIRECT
+                // REDIRECT TO DASHBOARD
                 setTimeout(() => {
                     window.location.href = "./dashboard.html";
-                }, 1200);
+                }, 1000);
 
             } else {
-                message.innerHTML = `<span class="error">${data.message}</span>`;
+                message.innerHTML = `<span class="error">${data.message || "Login failed"}</span>`;
             }
 
         } catch (error) {
@@ -47,19 +50,15 @@ if (loginForm) {
     });
 }
 
-
 // SHOW PASSWORD
 const togglePassword = document.getElementById("togglePassword");
 const password = document.getElementById("password");
 
 if (togglePassword && password) {
     togglePassword.addEventListener("click", () => {
-        password.type = password.type === "password"
-            ? "text"
-            : "password";
+        password.type = password.type === "password" ? "text" : "password";
     });
 }
-
 
 // THEME TOGGLE (SAFE)
 const themeBtn = document.getElementById("themeBtn");
