@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedTheme === "light") {
         document.body.classList.add("light-mode");
     } else {
-        document.body.classList.add("dark-mode");
+        document.body.classList.remove("light-mode");
     }
 });
 
@@ -15,8 +15,8 @@ const themeBtn = document.getElementById("themeBtn");
 
 if (themeBtn) {
     themeBtn.addEventListener("click", () => {
+
         document.body.classList.toggle("light-mode");
-        document.body.classList.toggle("dark-mode");
 
         // SAVE STATE
         if (document.body.classList.contains("light-mode")) {
