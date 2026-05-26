@@ -1,34 +1,67 @@
-const token = localStorage.getItem("token");
+const token =
+localStorage.getItem("token");
+
 
 // PROTECT ROUTE
+
 if (!token) {
-    window.location.href = "./index.html";
+
+    window.location.href =
+    "login.html";
+
 }
+
 
 // USER DATA
-const username = localStorage.getItem("username");
-const email = localStorage.getItem("email");
 
-// SAFE ELEMENT CHECK (prevents null crashes)
-const usernameEl = document.getElementById("username");
-const emailEl = document.getElementById("email");
+const username =
+localStorage.getItem("username");
 
-if (usernameEl) {
-    usernameEl.innerText = username || "User";
-}
+const email =
+localStorage.getItem("email");
 
-if (emailEl) {
-    emailEl.innerText = email || "No email found";
-}
+
+// DISPLAY USER DATA
+
+document.getElementById(
+    "username"
+).innerText = username;
+
+document.getElementById(
+    "email"
+).innerText = email;
+
 
 // LOGOUT
-const logoutBtn = document.getElementById("logoutBtn");
 
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener(
+    "click",
+    () => {
+
         localStorage.clear();
 
-        // always use relative path for Vercel
-        window.location.href = "./index.html";
-    });
-}
+        window.location.href =
+        "login.html";
+
+    }
+);
+
+
+// DARK/LIGHT MODE
+
+const themeBtn =
+document.getElementById("themeBtn");
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light-dashboard"
+        );
+
+    }
+);
