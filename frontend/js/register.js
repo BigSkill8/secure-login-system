@@ -1,5 +1,3 @@
-const API_BASE = "https://secure-login-system-pp91.onrender.com/api/auth";
-
 const registerForm = document.getElementById("registerForm");
 const message = document.getElementById("message");
 
