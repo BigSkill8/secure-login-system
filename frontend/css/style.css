@@ -192,3 +192,11 @@ RESPONSIVE
         width: 100%;
     }
 }
+
+/*safety proof css*/
+
+body.auth-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
