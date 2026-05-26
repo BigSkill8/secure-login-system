@@ -7,16 +7,14 @@ dns.setDefaultResultOrder("ipv4first");
 const sendEmail = async (to, subject, text) => {
     try {
 
-        // =========================
+        console.log("🔥 SEND EMAIL FUNCTION CALLED");
+
         // CHECK ENV
-        // =========================
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
             throw new Error("Missing EMAIL credentials");
         }
 
-        // =========================
-        // CREATE TRANSPORTER (FIXED SCOPE)
-        // =========================
+        // CREATE TRANSPORTER
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
@@ -29,9 +27,7 @@ const sendEmail = async (to, subject, text) => {
             }
         });
 
-        // =========================
         // EMAIL DATA
-        // =========================
         const mailOptions = {
             from: `"SecureAuth" <${process.env.EMAIL_USER}>`,
             to,
@@ -39,13 +35,11 @@ const sendEmail = async (to, subject, text) => {
             text
         };
 
-        // =========================
         // SEND EMAIL
-        // =========================
         const info = await transporter.sendMail(mailOptions);
 
         console.log("✅ EMAIL SENT SUCCESSFULLY");
-        console.log(info.response);
+        console.log("Response:", info.response);
 
         return info;
 
